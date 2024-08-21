@@ -1,4 +1,6 @@
-<div>
-  <h1 class="font-bold text-4xl">Products#show</h1>
-  <p>Find me in app/views/products/show.html.erb</p>
+<div class="flex flex-col text-white text-center">
+  <div class="flex flex-col"><%= @product.name %></div>
+  <%= @product.description %>
+  <%= @product.price %>
+  <%= @product.stock %>
 </div>
