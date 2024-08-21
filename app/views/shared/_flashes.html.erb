@@ -1,0 +1,17 @@
+<% if notice %>
+  <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative m-1" role="alert">
+    <button type="button" class="absolute top-0 right-0 mr-1 mt-1" data-dismiss="alert" aria-label="Close">
+      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.95 5.636l-1.414-1.414L10 8.586 6.464 5.121 5.05 6.535 8.586 10l-3.535 3.535 1.414 1.414L10 11.414l3.536 3.536 1.414-1.414L11.414 10l3.535-3.535z"/></svg>
+    </button>
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative m-1" role="alert">
+    <button type="button" class="absolute top-0 right-0 mr-1 mt-1" data-dismiss="alert" aria-label="Close">
+      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.95 5.636l-1.414-1.414L10 8.586 6.464 5.121 5.05 6.535 8.586 10l-3.535 3.535 1.414 1.414L10 11.414l3.536 3.536 1.414-1.414L11.414 10l3.535-3.535z"/></svg>
+    </button>
+    <%= alert %>
+  </div>
+<% end %>
