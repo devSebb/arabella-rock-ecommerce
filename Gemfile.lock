@@ -328,7 +328,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
-  error_highlight (>= 0.4.0)
+  error_highlight (>= 0.6.0)
   importmap-rails
   jbuilder
   pg (~> 1.1)
