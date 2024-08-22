@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     patch ":id", to: "carts#update_quantity", as: "update_quantity"
   end
 
+  resource :user, only: [ :show, :index ] do
+    resources :orders, only: [ :show ]
+  end
+
   resources :products, only: [ :index, :show, :new ]
   resources :orders, only: [ :index, :show, :create ]
   resources :reviews, only: [ :index, :create, :destroy ]

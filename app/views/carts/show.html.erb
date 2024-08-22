@@ -1,8 +1,9 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 my-10">
   <h1 class="text-white text-4xl mb-12">Your Cart</h1>
 
   <% if @cart.present? && @cart.any? %>
-    <div class="space-y-20" data-controller="cart">
+    <div class="space-y-10" data-controller="cart">
+      <% total_sum = 0 %>
       <% @cart.each do |product_id, quantity| %>
         <% product = Product.find_by(id: product_id) %>
         <% if product %>
@@ -24,16 +25,23 @@
               <%= button_to 'Remove', remove_from_cart_path(product_id), method: :delete, class: "text-red-500 hover:text-red-600" %>
             </div>
           </div>
+          <% total_sum += product.price * quantity %>
         <% end %>
       <% end %>
-    </div>
 
-    <div class="mt-8">
-      <% if user_signed_in? %>
-        <%= button_to 'Checkout', orders_path, method: :post, class: "bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-600" %>
-      <% else %>
-        <%= link_to 'Login to Checkout', new_user_session_path, class: "bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600" %>
-      <% end %>
+      <%# Total Price %>
+      <div class="flex justify-between items-center p-4 rounded-lg w-full bg-white text-black">
+        <h2 class="text-xl font-semibold">Total Price:</h2>
+        <p class="text-xl">$<%= total_sum %></p>
+      </div>
+
+      <div class="mt-8">
+        <% if user_signed_in? %>
+          <%= button_to 'Checkout', orders_path, method: :post, class: "bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-600" %>
+        <% else %>
+          <%= link_to 'Login to Checkout', new_user_session_path, class: "bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600" %>
+        <% end %>
+      </div>
     </div>
   <% else %>
     <p class="text-white text-xl">Your cart is empty.</p>
