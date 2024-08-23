@@ -1,5 +1,8 @@
 <div class="container mx-auto px-4 my-10">
-  <h1 class="text-white text-4xl mb-12">Your Cart</h1>
+  <div class="flex justify-between items-center">
+    <h1 class="text-white text-4xl mb-12">Your Cart</h1>
+    <%= link_to "Back", :back, class:"text-white text-xl"  %>
+  </div>
 
   <% if @cart.present? && @cart.any? %>
     <div class="space-y-10" data-controller="cart">
