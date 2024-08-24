@@ -64,3 +64,4 @@ gem "tailwindcss-rails", "~> 2.7"
 gem "devise", "~> 4.9"
 gem 'cancancan'
 gem 'pg_search'
+gem 'anime-rails', '~> 3.2', '>= 3.2.1.2'

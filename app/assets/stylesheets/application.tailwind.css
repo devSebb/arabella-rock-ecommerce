@@ -15,3 +15,23 @@ body {
 }
 
 */
+@layer utilities {
+
+      .my-path {
+        fill:none;
+        stroke:#ffffff;
+        stroke-width:4;
+      }
+      .image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .image {
+        height: 100%;
+        object-fit: cover;
+      }
+
+  }

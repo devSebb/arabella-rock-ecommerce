@@ -10,8 +10,12 @@
   </div>
 </section>
 <%# Image Grid Section %>
+<div class="absolute w-[300px] h-fit top-[800px] left-[200px]">
+  <%= render 'shared/line_text' %>
+</div>
+
 <section>
-  <div class="w-full grid grid-cols-6 gap-2 my-60">
+  <div class="w-full grid grid-cols-6 gap-2 mt-60">
     <div class="col-span-2">
       <%= image_tag 'musicians/Soda_Concert.jpg', class: '', alt: 'Soda' %>
     </div>
@@ -25,18 +29,17 @@
     <div class="col-start-2 col-span-4">
       <%= image_tag 'musicians/Van_Halen_Concert.jpg', class: '', alt: 'Van_Halen' %>
     </div>
-
-    <div class="col-span-2 col-start-2">
-      <%= image_tag 'musicians/ACDC_Concert.jpg', class: '', alt: 'ACDC' %>
-    </div>
-    <div class="col-span-3 col-end-7">
-      <%= image_tag 'musicians/Guns_N_Roses_Concert.jpg', class: '', alt: 'Guns_N_Roses' %>
-    </div>
-    <div class="col-span-2 col-start-1">
-      <%= image_tag 'musicians/Prince_Concert.jpg', class: '', alt: 'Prince' %>
-    </div>
-    <div class="col-span-3 col-end-6">
-      <%= image_tag 'musicians/Metallica_Concert.jpg', class: '', alt: 'Metallica' %>
-    </div>
   </div>
+
+  <div class="flex ml-40"><%= render 'shared/line_text_2' %></div>
+
+<div class="w-full grid grid-cols-6 gap-2 mt-10 mb-40">
+  <div class="col-span-3 col-start-1 image-container">
+    <%= image_tag 'musicians/Guns_N_Roses_Concert.jpg', class: 'image', alt: 'Guns_N_Roses' %>
+  </div>
+  <div class="col-span-3 col-end-7 image-container">
+    <%= image_tag 'musicians/Metallica_Concert.jpg', class: 'image', alt: 'Metallica' %>
+  </div>
+</div>
+
 </section>

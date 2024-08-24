@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "animejs": "^3.2.2",
     "flowbite": "^2.5.1"
   }
 }
