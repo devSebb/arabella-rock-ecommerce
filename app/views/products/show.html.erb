@@ -3,9 +3,11 @@
 
   <div class="w-1/3 flex justify-center items-center">
     <% if @product.images.attached? %>
-      <% @product.images.each do |image| %>
-        <%= image_tag image, alt: @product.name, class: "w-fit h-auto max-h-[400px] object-cover" %>
-      <% end %>
+      <div class="product-images">
+        <% @product.images.each do |image| %>
+          <%= image_tag image, alt: @product.name, class: "w-fit h-auto max-h-[400px] object-cover" %>
+        <% end %>
+      </div>
     <% else %>
       <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-fit h-auto max-h-[400px] object-cover" %>
     <% end %>

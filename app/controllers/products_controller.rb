@@ -19,9 +19,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = current_user.products.new(product_params)
+    @product = Product.new(product_params)
+
+    if params[:product][:images].present?
+      @product.images.attach(params[:product][:images])
+    end
+
     if @product.save
-      redirect_to products_path, notice: "Product created successfully."
+      redirect_to products_path, notice: "Product was successfully created."
     else
       render :new
     end
@@ -49,7 +54,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :stock, :images)
+    params.require(:product).permit(:name, :description, :price, :stock, :user_id, :category)
   end
 
   def merchant_or_admin

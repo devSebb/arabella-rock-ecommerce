@@ -47,7 +47,6 @@
             <a href="<%= products_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <%= image_tag 'icons/Guitar back part.svg', class: 'w-6 h-6', alt: 'guitar back part' %>
                <span class="flex-1 ms-3 whitespace-nowrap">Store</span>
-               <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
             </a>
          </li>
           <li data-controller="cart">
@@ -62,8 +61,8 @@
          <% if user_signed_in? %>
           <li>
             <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <%= image_tag 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: 'rock hand symbol' %>
-              <span class="flex-1 ms-3 whitespace-nowrap">User Account</span>
+              <%= image_tag current_user.merchant? ? 'icons/Cassette Tape.svg' : 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: current_user.merchant? ? 'cassette' : 'rock hand symbol' %>
+              <span class="flex-1 ms-3 whitespace-nowrap"><%= current_user.merchant? ? 'Merchant Dashboard' : 'User Account' %></span>
             </a>
           </li>
           <% if current_user.admin? %>
@@ -74,22 +73,15 @@
               </a>
             </li>
           <% end %>
-          <% if current_user.merchant? || current_user.admin? %>
-            <li>
-              <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <%= image_tag 'icons/Cassette Tape.svg', class: 'w-6 h-6', alt: 'cassette' %>
-                <span class="flex-1 ms-3 whitespace-nowrap">Merchant Dashboard</span>
-              </a>
-            </li>
-          <% end %>
+
           <li>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-700 group" %>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group" %>
           </li>
          <% else %>
           <li>
             <a href="<%= new_user_session_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <%= image_tag 'icons/Music listen headphones.svg', class: 'w-6 h-6', alt: 'headphones' %>
-              <span class="flex-1 ms-3 whitespace-nowrap">LogIn/SignUp</span>
+              <span class="flex-1 ms-3 whitespace-nowrap">Log In</span>
             </a>
           </li>
          <% end %>

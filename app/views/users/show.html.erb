@@ -1,51 +1,65 @@
-<div class="text-white">
-  <p>User: <%= current_user.email %></p>
-  <h1>Your Orders</h1>
-
-  <div class="grid gap-6">
-    <% current_user.orders.each do |order| %>
-      <div class="border border-white p-4">
-        <h2>Order #<%= order.id %></h2>
-        <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
-        <p>Status: <%= order.status %></p>
-        <p>Total: $<%= number_with_precision(order.total, precision: 2) %></p>
-
-        <h3 class="mt-4 mb-2">Order Items</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <% order.order_items.each do |item| %>
-            <div class="border border-white p-2">
-              <p><strong><%= item.product.name %></strong></p>
-              <p>Quantity: <%= item.quantity %></p>
-              <p>Price: $<%= number_with_precision(item.price, precision: 2) %></p>
-              <p>Subtotal: $<%= number_with_precision(item.price * item.quantity, precision: 2) %></p>
-            </div>
-          <% end %>
-        </div>
+<% if current_user.merchant? || current_user.admin? %>
+    <div class="text-white flex flex-col mx-10">
+      <div class="flex justify-between mb-10 items-center">
+        <h1 class="text-2xl font-bold">Your Products</h1>
+        <%= link_to "Add New Product", new_product_path, class: "z-20 mt-2 inline-block bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer", data: { turbo: false } %>
       </div>
-    <% end %>
-  </div>
-
-
-
-  <% if current_user.merchant? %>
-    <div class="text-white flex items-end justify-end">
-      <h1>Your Products</h1>
       <% if current_user.respond_to?(:products) && current_user.products.any? %>
-        <div class="grid gap-6">
+        <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
           <% current_user.products.each do |product| %>
-            <div class="border border-white p-4">
-              <h2><%= product.name %></h2>
-              <p><%= product.description %></p>
-              <p>Price: $<%= number_with_precision(product.price, precision: 2) %></p>
+            <div class="text-white flex flex-col w-60 border border-white p-6 rounded-lg justify-between">
+              <div class="flex justify-center mb-4">
+                <% if product.images.attached? %>
+                  <% product.images.each do |image| %>
+                    <%= image_tag image, alt: product.name, class: "w-fit h-[200px]" %>
+                  <% end %>
+                <% else %>
+                  <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-auto h-[300px]" %>
+                <% end %>
+              </div>
+
+              <div class="text-md font-semibold">
+                <%= product.name %>
+              </div>
+              <div class="text-xl mb-4">
+                $<%= number_with_precision(product.price, precision: 2) %>
+              </div>
+              <div class="flex flex-row justify-between">
+                <%= link_to "Details", product_path(product), class: "text-white hover:underline" %>
+                <%= link_to "Edit", edit_product_path(product), class: "p-3 text-white rounded-lg border border-white hover:bg-blue-800" %>
+              </div>
             </div>
           <% end %>
         </div>
       <% else %>
-        <p class="mt-4">You don't have any products.</p>
+        <p class="absolute left-1/2 transform -translate-x-1/2 top-64">You haven't created any products.</p>
       <% end %>
-      <%= link_to "Add New Product", new_product_path, class: "z-20 mt-2 inline-block bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer", data: { turbo: false } %>
     </div>
-  <% else %>
-    <p>Debug: User is not a merchant</p>
-  <% end %>
-</div>
+<% else %>
+  <div class="text-white">
+      <p>User: <%= current_user.email %></p>
+      <h1>Your Orders</h1>
+    <div class="grid gap-6">
+      <% current_user.orders.each do |order| %>
+        <div class="border border-white p-4">
+          <h2>Order #<%= order.id %></h2>
+          <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
+          <p>Status: <%= order.status %></p>
+          <p>Total: $<%= number_with_precision(order.total, precision: 2) %></p>
+
+          <h3 class="mt-4 mb-2">Order Items</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <% order.order_items.each do |item| %>
+              <div class="border border-white p-2">
+                <p><strong><%= item.product.name %></strong></p>
+                <p>Quantity: <%= item.quantity %></p>
+                <p>Price: $<%= number_with_precision(item.price, precision: 2) %></p>
+                <p>Subtotal: $<%= number_with_precision(item.price * item.quantity, precision: 2) %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
