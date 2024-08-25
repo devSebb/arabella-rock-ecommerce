@@ -24,4 +24,28 @@
       </div>
     <% end %>
   </div>
+
+
+
+  <% if current_user.merchant? %>
+    <div class="text-white flex items-end justify-end">
+      <h1>Your Products</h1>
+      <% if current_user.respond_to?(:products) && current_user.products.any? %>
+        <div class="grid gap-6">
+          <% current_user.products.each do |product| %>
+            <div class="border border-white p-4">
+              <h2><%= product.name %></h2>
+              <p><%= product.description %></p>
+              <p>Price: $<%= number_with_precision(product.price, precision: 2) %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="mt-4">You don't have any products.</p>
+      <% end %>
+      <%= link_to "Add New Product", new_product_path, class: "z-20 mt-2 inline-block bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer", data: { turbo: false } %>
+    </div>
+  <% else %>
+    <p>Debug: User is not a merchant</p>
+  <% end %>
 </div>

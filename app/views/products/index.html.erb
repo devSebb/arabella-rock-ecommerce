@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div class="relative flex-grow">
-          <%= f.text_field :name, id: "search-dropdown", class: "block w-full p-2.5 z-20 text-sm text-gray-100 bg-black border-s-gray-50 border-s-2 border border-gray-300", placeholder: "Search", required: true %>
+          <%= f.text_field :name, id: "search-dropdown", class: "block w-full p-2.5 z-20 text-sm text-gray-100 bg-transparent border-s-gray-50 border-s-2 border border-gray-300", placeholder: "Search", required: true %>
           <div class="absolute top-0 end-0 flex">
             <%= link_to products_path, class: "p-2.5 text-sm font-medium h-full text-white bg-transparent border-s border-white hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300" do %>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -61,14 +61,14 @@
         <div class="flex justify-center mb-4">
           <% if product.images.attached? %>
             <% product.images.each do |image| %>
-              <%= image_tag image, alt: product.name, class: "w-fit h-[300px]" %>
+              <%= image_tag image, alt: product.name, class: "w-fit h-[200px]" %>
             <% end %>
           <% else %>
             <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-auto h-[300px]" %>
           <% end %>
         </div>
 
-        <div class="text-lg font-semibold">
+        <div class="text-md font-semibold">
           <%= product.name %>
         </div>
         <div class="text-xl mb-4">

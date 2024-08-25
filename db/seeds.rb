@@ -10,7 +10,8 @@ ActiveRecord::Base.transaction do
       name: params["name"],
       description: params["description"],
       price: params["price"],
-      stock: params["stock"]
+      stock: params["stock"],
+      user_id: params["user_id"]
     )
 
     if params["images"].present?

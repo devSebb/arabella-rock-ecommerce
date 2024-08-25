@@ -1,6 +1,27 @@
-<div class="flex flex-col text-white text-center">
-  <div class="flex flex-col"><%= @product.name %></div>
-  <%= @product.description %>
-  <%= @product.price %>
-  <%= @product.stock %>
+<div class="relative flex flex-row text-white mx-4 md:mx-8 lg:mx-16 my-8 justify-center">
+  <%= link_to "Back", :back, class: "absolute left-0 top-0 text-white text-xl hover:underline" %>
+
+  <div class="w-1/3 flex justify-center items-center">
+    <% if @product.images.attached? %>
+      <% @product.images.each do |image| %>
+        <%= image_tag image, alt: @product.name, class: "w-fit h-auto max-h-[400px] object-cover" %>
+      <% end %>
+    <% else %>
+      <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-fit h-auto max-h-[400px] object-cover" %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-1/2 ml-8 space-y-4">
+    <h1 class="text-xl font-semibold"><%= @product.name %></h1>
+    <p><%= @product.description %></p>
+    <div class="flex items-center">
+      <span class="text-xl mr-4">$<%= number_with_precision(@product.price, precision: 2) %></span>
+      <span>Quantity available: <%= @product.stock %></span>
+    </div>
+    <%= form_with url: add_to_cart_path(@product), method: :post, local: true do %>
+      <button type="submit" class="mt-4 p-3 text-white rounded-lg border border-white hover:bg-white hover:text-black transition duration-300">
+        Add to Cart
+      </button>
+    <% end %>
+  </div>
 </div>

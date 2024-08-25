@@ -7,6 +7,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.merchant?
+      can :create, Product
       can :manage, Product, user_id: user.id
       can :manage, Order, user_id: user.id
       can :read, Order

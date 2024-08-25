@@ -4,27 +4,31 @@
     "description":"Combines the early 60s style Les Paul model with some functional and time-tested modifications. As expected, the Les Paul Classic is crafted with a mahogany back and maple top coupled with a SlimTaper™ mahogany neck and a bound, rosewood fingerboard.",
     "price":"2000",
     "stock":"4",
-    "images": ["guitars/Gibson Les Paul Classic.png"]
+    "images": ["guitars/Gibson Les Paul Classic.png"],
+    "user_id": 1
   },
   {
     "name":"Fender 1962 Stratocaster",
     "description":"The Vintage Custom '62 Stratocaster replicates a rare 1962 model with a two-piece alder body, NOS lacquer finish, and Closet Classic metal parts. It features a tinted riftsawn maple neck with a C profile and a 7.25-9.5 radius fingerboard for smooth play. Other specs include three Hand-Wound '62/'63 pickups, a 5-way switch, vintage wiring, and an American Vintage tremolo. Includes a deluxe hardshell case, strap, and Certificate of Authenticity.",
     "price":"1820",
     "stock":"2",
-    "images": ["guitars/Fender_Stratocaster_Guitar.png"]
+    "images": ["guitars/Fender_Stratocaster_Guitar.png"],
+    "user_id": 1
   },
   {
     "name":"Fender Limited Edition Violinmaster Telecaster® Relic®",
     "description":"This hand-crafted Violinmaster Telecaster is a tribute to the iconic Gibson-Huberman Stradivarius violin. Originally made in 1713 by Antonio Stradivari and owned by Joshua Bell, this violin was stolen twice before being recovered and auctioned. Bell entrusted Fender Custom Shop's Yuriy Shishkov to recreate the violin's essence in this guitar.Featuring a hollow flame maple body, a carved Stradivari spruce top, and a neck of Bosnian flame maple, the Telecaster replicates the Stradivarius look and feel. It includes a 9.5-radius ebony fingerboard, three piezo pickups, two TV Jones® Thunder'Blade pickups, and a custom floating bridge. The guitar has an authentic European violin varnish finish and comes with a custom flight case, a mini violin case, and a certificate of authenticity.",
     "price":"29000",
     "stock":"1",
-    "images": ["guitars/Fender_Telecaster_Guitar.png"]
+    "images": ["guitars/Fender_Telecaster_Guitar.png"],
+    "user_id": 1
   },
   {
     "name":"Ibanez RG370AHMZ",
     "description":"The RG370AHMZ features an ash body bolted to a maple Wizard III neck with a 24-fret maple fingerboard with dot position markers. Components include the Edge Zero II double locking tremolo bridge with a locking nut and a removable tuning stabilizer and Ibanez Quantum pickups with dual humbuckers flanking a single-coil.",
     "price":"600",
     "stock":"3",
-    "images": ["guitars/Ibanez_Electric_Guitar.png"]
+    "images": ["guitars/Ibanez_Electric_Guitar.png"],
+    "user_id": 1
   }
 ]

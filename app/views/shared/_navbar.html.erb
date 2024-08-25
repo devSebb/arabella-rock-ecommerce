@@ -59,33 +59,40 @@
               </span>
             </a>
           </li>
-         <li>
-            <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <%= image_tag 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: 'rock hand symbol' %>
-               <span class="flex-1 ms-3 whitespace-nowrap">User Account</span>
-            </a>
-         </li>
-         <li>
-            <a href="<%= new_user_session_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <%= image_tag 'icons/Music listen headphones.svg', class: 'w-6 h-6', alt: 'headphones' %>
-               <span class="flex-1 ms-3 whitespace-nowrap">LogIn/SignUp</span>
-            </a>
-         </li>
-         <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <%= image_tag 'icons/Condenser Microphone Stand.svg', class: 'w-6 h-6', alt: 'microphone' %>
-               <span class="flex-1 ms-3 whitespace-nowrap">Admin Dashboard</span>
-            </a>
-         </li>
-         <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <%= image_tag 'icons/Cassette Tape.svg', class: 'w-6 h-6', alt: 'cassette' %>
-               <span class="flex-1 ms-3 whitespace-nowrap">Merchant Dashboard</span>
-            </a>
-         </li>
+         <% if user_signed_in? %>
           <li>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" %>
+            <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <%= image_tag 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: 'rock hand symbol' %>
+              <span class="flex-1 ms-3 whitespace-nowrap">User Account</span>
+            </a>
           </li>
+          <% if current_user.admin? %>
+            <li>
+              <a href="<%= users_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag 'icons/Condenser Microphone Stand.svg', class: 'w-6 h-6', alt: 'microphone' %>
+                <span class="flex-1 ms-3 whitespace-nowrap">Admin Dashboard</span>
+              </a>
+            </li>
+          <% end %>
+          <% if current_user.merchant? || current_user.admin? %>
+            <li>
+              <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag 'icons/Cassette Tape.svg', class: 'w-6 h-6', alt: 'cassette' %>
+                <span class="flex-1 ms-3 whitespace-nowrap">Merchant Dashboard</span>
+              </a>
+            </li>
+          <% end %>
+          <li>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-700 group" %>
+          </li>
+         <% else %>
+          <li>
+            <a href="<%= new_user_session_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <%= image_tag 'icons/Music listen headphones.svg', class: 'w-6 h-6', alt: 'headphones' %>
+              <span class="flex-1 ms-3 whitespace-nowrap">LogIn/SignUp</span>
+            </a>
+          </li>
+         <% end %>
       </ul>
    </div>
 </div>

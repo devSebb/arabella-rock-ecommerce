@@ -1,4 +1,47 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#index</h1>
-  <p>Find me in app/views/users/index.html.erb</p>
+<div class="mx-20 text-white">
+  <h1 class="text-3xl font-bold mb-6">Users</h1>
+
+  <div class="grid gap-6">
+    <% @users.each do |user| %>
+      <div class="border border-white rounded-lg p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-semibold"><%= user.email %></h2>
+          <span class="text-sm bg-blue-500 text-white px-2 py-1 rounded"><%= user.role %></span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <p class="text-sm text-gray-400">Email</p>
+            <p><%= user.email %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-400">Joined</p>
+            <p><%= user.created_at.strftime("%B %d, %Y") %></p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <p>User ID: <%= user.id %></p>
+          <p>Product Count: <%= user.products.count %></p>
+        </div>
+
+        <% if user.products.any? %>
+          <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-3">Products (<%= user.products.count %>)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <% user.products.each do |product| %>
+                <div class="border border-gray-600 rounded p-4">
+                  <h4 class="font-medium mb-2"><%= product.name %></h4>
+                  <p class="text-sm text-gray-400 mb-2"><%= truncate(product.description, length: 100) %></p>
+                  <p class="text-lg font-bold">$<%= number_with_precision(product.price, precision: 2) %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <p class="mt-4">No products for this user.</p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
