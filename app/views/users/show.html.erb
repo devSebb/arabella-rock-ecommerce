@@ -2,7 +2,7 @@
     <div class="text-white flex flex-col mx-10">
       <div class="flex justify-between mb-10 items-center">
         <h1 class="text-2xl font-bold">Your Products</h1>
-        <%= link_to "Add New Product", new_product_path, class: "z-20 mt-2 inline-block bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer", data: { turbo: false } %>
+        <%= link_to "Add New Product", new_product_path, class: "z-20 mt-2 inline-block bg-transparent border border-white hover:bg-gray-800 text-white font-bold py-2 px-4 rounded cursor-pointer shadow-md shadow-white", data: { turbo: false } %>
       </div>
       <% if current_user.respond_to?(:products) && current_user.products.any? %>
         <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
@@ -25,12 +25,17 @@
                 $<%= number_with_precision(product.price, precision: 2) %>
               </div>
               <div class="flex flex-row justify-between">
-                <%= link_to "Details", product_path(product), class: "text-white hover:underline" %>
+                <div class="flex flex-col">
+                  <%= link_to "Details", product_path(product), class: "text-white hover:underline" %>
+                  Stock: <%= product.stock %>
+                </div>
                 <%= link_to "Edit", edit_product_path(product), class: "p-3 text-white rounded-lg border border-white hover:bg-blue-800" %>
               </div>
             </div>
           <% end %>
         </div>
+        <%# Sales section %>
+
       <% else %>
         <p class="absolute left-1/2 transform -translate-x-1/2 top-64">You haven't created any products.</p>
       <% end %>
