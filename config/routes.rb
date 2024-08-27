@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
-  resources :orders, only: [ :index, :show, :create ]
+  resources :orders, only: [ :index, :show, :create ] do
+    member do
+      get "success"
+    end
+  end
   resources :reviews, only: [ :index, :create, :destroy ]
 
   get "up" => "rails/health#show", as: :rails_health_check

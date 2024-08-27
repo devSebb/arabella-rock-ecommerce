@@ -36,6 +36,29 @@
         </div>
         <%# Sales section %>
 
+        <div class="mt-10">
+          <h2 class="text-2xl font-bold mb-5">Confirmed Purchases</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <% current_user.products.flat_map(&:order_items).select { |item| item.order.status == "paid" }.each do |item| %>
+              <div class="border border-white p-4 rounded-lg">
+                <h3 class="font-semibold"><%= item.product.name %></h3>
+                <p>Quantity: <%= item.quantity %></p>
+                <p>Price: $<%= number_with_precision(item.price, precision: 2) %></p>
+                <p>Total: $<%= number_with_precision(item.price * item.quantity, precision: 2) %></p>
+                <p>Date: <%= item.order.created_at.strftime('%B %d, %Y') %></p>
+                <p>Order ID: <%= item.order.id %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h2 class="text-2xl font-bold mb-5">Sales Summary</h2>
+          <% sales_data = current_user.products.flat_map(&:order_items).select { |item| item.order.status == "paid" } %>
+          <p>Total Sales: <%= sales_data.count %></p>
+          <p>Total Revenue: $<%= number_with_precision(sales_data.sum { |item| item.price * item.quantity }, precision: 2) %></p>
+        </div>
+
       <% else %>
         <p class="absolute left-1/2 transform -translate-x-1/2 top-64">You haven't created any products.</p>
       <% end %>

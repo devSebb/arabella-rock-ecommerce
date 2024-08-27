@@ -29,14 +29,20 @@ class OrdersController < ApplicationController
 
     if @order.save
       create_order_items
-      session[:cart] = nil
-      redirect_to @order, notice: "Order was successfully created."
+      create_stripe_session
     else
       redirect_to cart_path, alert: "Unable to create order. Please try again."
     end
   rescue => e
     Rails.logger.error "Error creating order: #{e.message}"
     redirect_to cart_path, alert: "An error occurred while creating your order. Please try again."
+  end
+
+  def success
+    @order = Order.find(params[:id])
+    @order.update(status: "paid")
+    session[:cart] = nil
+    redirect_to @order, notice: "Payment successful. Your order has been placed."
   end
 
   private
@@ -51,5 +57,30 @@ class OrdersController < ApplicationController
       )
     end
     @order.update(total: @order.order_items.sum { |item| item.price * item.quantity })
+  end
+
+  def create_stripe_session
+    line_items = @order.order_items.map do |item|
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.product.name
+          },
+          unit_amount: (item.price * 100).to_i
+        },
+        quantity: item.quantity
+      }
+    end
+
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: [ "card" ],
+      line_items: line_items,
+      mode: "payment",
+      success_url: success_order_url(@order),
+      cancel_url: cart_url
+    )
+
+    render json: { id: session.id }
   end
 end

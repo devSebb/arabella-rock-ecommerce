@@ -41,7 +41,12 @@
 
       <div class="flex justify-end mt-8">
         <% if user_signed_in? %>
-          <%= button_to 'Checkout', orders_path, method: :post, class: "bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-600" %>
+          <button data-controller="stripe-checkout"
+                  data-stripe-checkout-publishable-key-value="<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>"
+                  data-action="click->stripe-checkout#checkout"
+                  class="bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-600">
+            Checkout with Stripe
+          </button>
         <% else %>
           <%= link_to 'Login to Checkout', new_user_session_path, class: "bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600" %>
         <% end %>
