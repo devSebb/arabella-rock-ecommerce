@@ -1,0 +1,24 @@
+<div class="flex items-center justify-center my-10 text-white">
+  <div class="p-4 w-1/2 max-w-md rounded-lg" style="box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);">
+    <h2 class="text-xl text-center font-bold mb-4">Add Review for <br> <%= @product.name %></h2>
+
+    <%= form_with(model: [@product, @review], local: true, class: "space-y-4") do |form| %>
+      <div class="field">
+        <%= form.label :rating, class: "block font-light mb-1" %>
+        <%= form.select :rating, options_for_select(1..5), {}, class: "w-full bg-transparent border border-gray-600 rounded-md p-2 focus:border-white focus:outline-none focus:ring-1 focus:ring-white" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :comment, class: "block font-light mb-1" %>
+        <%= form.text_area :comment, class: "w-full bg-transparent border border-gray-600 rounded-md p-2 focus:border-white focus:outline-none focus:ring-1 focus:ring-white", rows: 4 %>
+      </div>
+
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :product_id, value: @product.id %>
+
+      <div class="actions flex justify-center">
+        <%= form.submit "Submit Review", class: "w-1/2 bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

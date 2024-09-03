@@ -1,89 +1,91 @@
-<!-- drawer init and show -->
-<div class="text-center">
-   <button class="bg-black rounded-full border border-white p-4 my-6" style="box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-      <%= image_tag 'icons/Guitar icon.svg', class: 'w-10 h-10', alt: 'guitar-icon' %>
-   </button>
-</div>
+<div class="relative z-50">
+  <!-- drawer init and show -->
+  <div class="text-center">
+     <button class="bg-black rounded-full border border-white p-4 my-6" style="box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+        <%= image_tag 'icons/Guitar icon.svg', class: 'w-10 h-10', alt: 'guitar-icon' %>
+     </button>
+  </div>
 
 
-<!-- drawer component -->
-<div id="drawer-navigation" class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
-    <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
-    <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </button>
-  <div class="py-4 overflow-y-auto">
-      <ul class="space-y-2 font-medium">
-        <li>
-          <a href="<%= root_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <%= image_tag 'icons/Music Controllers.svg', class: 'w-6 h-6', alt: 'music controllers' %>
-            <span class="ms-3">Home</span>
-          </a>
-        </li>
-         <%# <li>
-            <button type="button" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                  <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                     <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-                  </svg>
-                  <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">E-commerce</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-            </button>
-            <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                  <li>
-                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Guitars</a>
-                  </li>
-                  <li>
-                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Basses</a>
-                  </li>
-                  <li>
-                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Accesories</a>
-                  </li>
-            </ul>
-         </li> %>
-         <li>
-            <a href="<%= products_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <%= image_tag 'icons/Guitar back part.svg', class: 'w-6 h-6', alt: 'guitar back part' %>
-               <span class="flex-1 ms-3 whitespace-nowrap">Store</span>
-            </a>
-         </li>
-          <li data-controller="cart">
-            <a href="<%= cart_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <%= image_tag 'icons/Cart Monocolor.svg', class: 'w-6 h-6', alt: 'Cart' %>
-              <span class="flex-1 ms-3 whitespace-nowrap">Cart</span>
-              <span data-cart-target="quantity" class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                <%= session[:cart] ? session[:cart].values.sum : 0 %>
-              </span>
-            </a>
-          </li>
-         <% if user_signed_in? %>
+  <!-- drawer component -->
+  <div id="drawer-navigation" class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
+      <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
+      <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
+          <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      </button>
+    <div class="py-4 overflow-y-auto">
+        <ul class="space-y-2 font-medium">
           <li>
-            <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <%= image_tag current_user.merchant? ? 'icons/Cassette Tape.svg' : 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: current_user.merchant? ? 'cassette' : 'rock hand symbol' %>
-              <span class="flex-1 ms-3 whitespace-nowrap"><%= current_user.merchant? ? 'Merchant Dashboard' : 'User Account' %></span>
+            <a href="<%= root_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag 'icons/Music Controllers.svg', class: 'w-6 h-6', alt: 'music controllers' %>
+              <span class="ms-3">Home</span>
             </a>
           </li>
-          <% if current_user.admin? %>
-            <li>
-              <a href="<%= users_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <%= image_tag 'icons/Condenser Microphone Stand.svg', class: 'w-6 h-6', alt: 'microphone' %>
-                <span class="flex-1 ms-3 whitespace-nowrap">Admin Dashboard</span>
+           <%# <li>
+              <button type="button" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                       <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                    </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">E-commerce</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+              </button>
+              <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                    <li>
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Guitars</a>
+                    </li>
+                    <li>
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Basses</a>
+                    </li>
+                    <li>
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Accesories</a>
+                    </li>
+              </ul>
+           </li> %>
+           <li>
+              <a href="<%= products_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                 <%= image_tag 'icons/Guitar back part.svg', class: 'w-6 h-6', alt: 'guitar back part' %>
+                 <span class="flex-1 ms-3 whitespace-nowrap">Store</span>
+              </a>
+           </li>
+            <li data-controller="cart">
+              <a href="<%= cart_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag 'icons/Cart Monocolor.svg', class: 'w-6 h-6', alt: 'Cart' %>
+                <span class="flex-1 ms-3 whitespace-nowrap">Cart</span>
+                <span data-cart-target="quantity" class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  <%= session[:cart] ? session[:cart].values.sum : 0 %>
+                </span>
               </a>
             </li>
-          <% end %>
+           <% if user_signed_in? %>
+            <li>
+              <a href="<%= user_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag current_user.merchant? ? 'icons/Cassette Tape.svg' : 'icons/Rock Hand Symbol.svg', class: 'w-6 h-6', alt: current_user.merchant? ? 'cassette' : 'rock hand symbol' %>
+                <span class="flex-1 ms-3 whitespace-nowrap"><%= current_user.merchant? ? 'Merchant Dashboard' : 'User Account' %></span>
+              </a>
+            </li>
+            <% if current_user.admin? %>
+              <li>
+                <a href="<%= users_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <%= image_tag 'icons/Condenser Microphone Stand.svg', class: 'w-6 h-6', alt: 'microphone' %>
+                  <span class="flex-1 ms-3 whitespace-nowrap">Admin Dashboard</span>
+                </a>
+              </li>
+            <% end %>
 
-          <li>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group" %>
-          </li>
-         <% else %>
-          <li>
-            <a href="<%= new_user_session_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <%= image_tag 'icons/Music listen headphones.svg', class: 'w-6 h-6', alt: 'headphones' %>
-              <span class="flex-1 ms-3 whitespace-nowrap">Log In</span>
-            </a>
-          </li>
-         <% end %>
-      </ul>
-   </div>
+            <li>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group" %>
+            </li>
+           <% else %>
+            <li>
+              <a href="<%= new_user_session_path %>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <%= image_tag 'icons/Music listen headphones.svg', class: 'w-6 h-6', alt: 'headphones' %>
+                <span class="flex-1 ms-3 whitespace-nowrap">Log In</span>
+              </a>
+            </li>
+           <% end %>
+        </ul>
+     </div>
+  </div>
 </div>

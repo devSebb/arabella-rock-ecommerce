@@ -2,9 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="category-dropdown"
 export default class extends Controller {
-  static targets = ["button", "options", "input"]
+  static targets = ["button", "options", "input", "buttonText"]
 
   connect() {
+    this.isIndexPage = this.element.dataset.indexPage === "true"
     // Close the dropdown when clicking outside
     document.addEventListener('click', this.closeOutside.bind(this))
   }
@@ -22,6 +23,10 @@ export default class extends Controller {
     this.buttonTarget.textContent = selectedCategory
     this.inputTarget.value = selectedCategory
     this.optionsTarget.classList.add('hidden')
+
+    if (this.isIndexPage) {
+      this.element.closest("form").requestSubmit()
+    }
   }
 
   closeOutside(event) {

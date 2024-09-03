@@ -34,5 +34,41 @@
     "images": ["guitars/Ibanez_Electric_Guitar.png"],
     "category": "Guitars",
     "user_id": 1
+  },
+  {
+    "name":"Gibson Les Paul Cherry Sunburst",
+    "description":"Standard 50s Figured Top Heritage Cherry Sunburst. The Les Paul Standard 50's has a solid mahogany body with a maple top, a rounded 50's-style mahogany neck with a rosewood fingerboard and trapezoid inlays. It's equipped with an ABR-1, the classic-style Tune-O-Matic bridge, aluminum stop bar tailpiece, vintage deluxe tuners with keystone buttons, and aged gold tophat knobs. The calibrated Burstbucker 1 (neck) and Burstbucker 2 (bridge) pickups are loaded with AlNiCo II magnets, audio taper potentiometers and orange drop capacitors.",
+    "price":"2800",
+    "stock":"2",
+    "images": ["guitars/Gibson Les Paul Heritage Cherry Sunburst.png"],
+    "category": "Guitars",
+    "user_id": 1
+  },
+  {
+    "name":"Fender Jazz Bass  Sea Foam Green",
+    "description":"American Vintage II 1966 RW. The American Vintage II 1966 Jazz Bass features a comfortable “U” shape hard rock maple neck, and it plays like a dream with a 7.25” radius round-lam rosewood fingerboard and vintage tall frets. Characteristic of production in 1966, this J-Bass is offered with white neck binding, pearl dots, two volume controls with master tone, matching painted headstock and 4-ply tortoiseshell pickguard. The 4-saddle bridge with threaded saddles, vintage-style “lollipop” tuners and Pure Vintage ‘66 Jazz Bass pickups deliver classic thump and style.",
+    "price":"2200",
+    "stock":"1",
+    "images": ["guitars/Fender Jazz Bass Sea Foam Green.png"],
+    "category": "Basses",
+    "user_id": 1
+  },
+  {
+    "name":"Gibson Thunderbird Bass",
+    "description":"Inverness Green Non-reverse Headstock. Equipped with a Non-Reverse mahogany body and mahogany neck with a rosewood fretboard and 20 medium jumbo frets, each of the two Thunderbird pickups has a volume control, allowing you to use them separately, or to blend them in any amount you prefer. A master tone control rounds out the simple yet highly effective control layout. The three-ply white pickguard features the iconic Thunderbird graphic. The Non-Reverse Thunderbird is equipped with a Graph Tech nut.",
+    "price":"2400",
+    "stock":"2",
+    "images": ["guitars/Gibson Thunderbird Bass Inverness Green.png"],
+    "category": "Basses",
+    "user_id": 1
+  },
+  {
+    "name":"Ernie Ball Music Man StingRay Special 5",
+    "description":"HH Bass Burnt Ends Rosewood w/Mono soft case. The first bass designed by Ernie Ball Music Man, the StingRay 5 was unveiled in 1987 and has been an industry standard for extended range basses ever since. With its powerful punchy sound, the added flexibility of additional pickups, and a comfortably contoured body, the StingRay 5 satisfies even the most demanding of players.",
+    "price":"1900",
+    "stock":"2",
+    "images": ["guitars/StingRay Special 5HH Bass.png"],
+    "category": "Basses",
+    "user_id": 1
   }
 ]

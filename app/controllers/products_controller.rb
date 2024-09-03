@@ -3,11 +3,9 @@ class ProductsController < ApplicationController
   before_action :merchant_or_admin, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
-    if params[:name].present?
-      @products = Product.search_by_product_attributes(params[:name])
-    else
-      @products = Product.all
-    end
+    @products = Product.all
+    @products = @products.where(category: params[:category]) if params[:category].present?
+    @products = @products.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
   end
 
   def show

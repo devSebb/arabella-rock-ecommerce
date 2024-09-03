@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="mt-10">
+        <div class="mt-10 mb-48">
           <h2 class="text-2xl font-bold mb-5">Sales Summary</h2>
           <% sales_data = current_user.products.flat_map(&:order_items).select { |item| item.order.status == "paid" } %>
           <p>Total Sales: <%= sales_data.count %></p>
@@ -64,30 +64,32 @@
       <% end %>
     </div>
 <% else %>
-  <div class="text-white">
-      <p>User: <%= current_user.email %></p>
-      <h1>Your Orders</h1>
-    <div class="grid gap-6">
-      <% current_user.orders.each do |order| %>
-        <div class="border border-white p-4">
-          <h2>Order #<%= order.id %></h2>
-          <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
-          <p>Status: <%= order.status %></p>
-          <p>Total: $<%= number_with_precision(order.total, precision: 2) %></p>
-
-          <h3 class="mt-4 mb-2">Order Items</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <% order.order_items.each do |item| %>
-              <div class="border border-white p-2">
-                <p><strong><%= item.product.name %></strong></p>
-                <p>Quantity: <%= item.quantity %></p>
-                <p>Price: $<%= number_with_precision(item.price, precision: 2) %></p>
-                <p>Subtotal: $<%= number_with_precision(item.price * item.quantity, precision: 2) %></p>
-              </div>
-            <% end %>
+  <div class="container mx-auto">
+    <div class="text-white">
+        <p>User: <%= current_user.email %></p>
+        <p>User ID: <%= current_user.id %></p>
+        <h1 class="text-2xl font-bold my-4">Your Orders</h1>
+      <div class="grid gap-6">
+        <% current_user.orders.each do |order| %>
+          <div class="border border-white rounded-lg p-4">
+            <h2>Order #<%= order.id %></h2>
+            <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
+            <p>Status: <%= order.status %></p>
+            <p>Total: $<%= number_with_precision(order.total, precision: 2) %></p>
+            <h3 class="mt-4 mb-2">Order Items</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <% order.order_items.each do |item| %>
+                <div class="border border-white rounded-lg p-2">
+                  <p><%= link_to item.product.name, product_path(item.product), class: "font-bold text-white hover:text-gray-400 cursor-pointer transition duration-150 ease-in-out" %></p>
+                  <p>Quantity: <%= item.quantity %></p>
+                  <p>Price: $<%= number_with_precision(item.price, precision: 2) %></p>
+                  <p>Subtotal: $<%= number_with_precision(item.price * item.quantity, precision: 2) %></p>
+                </div>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

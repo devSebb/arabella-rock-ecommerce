@@ -3,27 +3,20 @@
   <div class="flex flex-row justify-between items-center w-full">
     <%= form_with url: products_path, method: :get, class: "flex-grow" do |f| %>
       <div class="flex">
-        <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-transparent border border-gray-300 rounded-s-lg hover:bg-gray-800 " type="button">
-          All categories
-          <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-          </svg>
-        </button>
-        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg">
-          <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-button">
-            <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100">Guitars</button>
-            </li>
-            <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100">Basses</button>
-            </li>
-            <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100">Drums</button>
-            </li>
-            <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100">Accessories</button>
-            </li>
-          </ul>
+        <div class="relative" data-controller="category-dropdown" data-index-page="true">
+          <button type="button" data-action="click->category-dropdown#toggle" data-category-dropdown-target="button" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-transparent border border-gray-300 rounded-s-lg hover:bg-gray-800">
+            <span data-category-dropdown-target="buttonText">All categories</span>
+            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+          </button>
+          <div data-category-dropdown-target="options" class="hidden absolute z-10 w-full bg-gray-800 border border-gray-600 rounded-md mt-1">
+            <div data-action="click->category-dropdown#select" data-category="" class="cursor-pointer p-2 hover:bg-gray-700">All categories</div>
+            <% ['Guitars', 'Basses', 'Drums', 'Accessories'].each do |category| %>
+              <div data-action="click->category-dropdown#select" data-category="<%= category %>" class="cursor-pointer p-2 hover:bg-gray-700"><%= category %></div>
+            <% end %>
+          </div>
+          <%= f.hidden_field :category, data: { category_dropdown_target: "input" } %>
         </div>
         <div class="relative flex-grow border rounded-e-md">
           <%= f.text_field :name, id: "search-dropdown", class: " w-full p-2.5 z-20 text-sm text-gray-100 bg-transparent  focus:outline-gray-800", placeholder: "Search", required: true %>
