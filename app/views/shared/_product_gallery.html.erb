@@ -1,0 +1,27 @@
+<div data-controller="carousel" class="flex items-center justify-between w-1/2 max-w-[800px] mx-auto mb-40">
+  <button data-action="click->carousel#prev" class="bg-white bg-opacity-50 rounded-full p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <div class="relative items-center overflow-hidden flex-grow">
+    <div data-carousel-target="container" class="flex transition-transform duration-300 ease-in-out">
+      <div class="w-full flex-shrink-0 flex items-center justify-center">
+        <%= image_tag "guitars/Gibson Les Paul Classic.png", class: "w-fit h-full object-contain max-h-[400px]", alt: "Gibson Les Paul Classic" %>
+      </div>
+      <div class="w-full flex-shrink-0 flex items-center justify-center">
+        <%= image_tag "guitars/Ibanez_Electric_Guitar.png", class: "w-fit h-full object-contain max-h-[400px]", alt: "Fender Stratocaster" %>
+      </div>
+      <div class="w-full flex-shrink-0 flex items-center justify-center">
+        <%= image_tag "guitars/Fender_Stratocaster_Guitar.png", class: "w-fit h-full object-contain max-h-[400px]", alt: "Taylor Acoustic" %>
+      </div>
+    </div>
+  </div>
+
+  <button data-action="click->carousel#next" class="bg-white bg-opacity-50 rounded-full p-2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>

@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :merchant_or_admin, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
-    @products = Product.all
+    @products = Product.all.order(category: :desc)
     @products = @products.where(category: params[:category]) if params[:category].present?
     @products = @products.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
   end

@@ -3,23 +3,8 @@
   <div class="flex flex-row justify-between items-center w-full">
     <%= form_with url: products_path, method: :get, class: "flex-grow" do |f| %>
       <div class="flex">
-        <div class="relative" data-controller="category-dropdown" data-index-page="true">
-          <button type="button" data-action="click->category-dropdown#toggle" data-category-dropdown-target="button" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-transparent border border-gray-300 rounded-s-lg hover:bg-gray-800">
-            <span data-category-dropdown-target="buttonText">All categories</span>
-            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg>
-          </button>
-          <div data-category-dropdown-target="options" class="hidden absolute z-10 w-full bg-gray-800 border border-gray-600 rounded-md mt-1">
-            <div data-action="click->category-dropdown#select" data-category="" class="cursor-pointer p-2 hover:bg-gray-700">All categories</div>
-            <% ['Guitars', 'Basses', 'Drums', 'Accessories'].each do |category| %>
-              <div data-action="click->category-dropdown#select" data-category="<%= category %>" class="cursor-pointer p-2 hover:bg-gray-700"><%= category %></div>
-            <% end %>
-          </div>
-          <%= f.hidden_field :category, data: { category_dropdown_target: "input" } %>
-        </div>
-        <div class="relative flex-grow border rounded-e-md">
-          <%= f.text_field :name, id: "search-dropdown", class: " w-full p-2.5 z-20 text-sm text-gray-100 bg-transparent  focus:outline-gray-800", placeholder: "Search", required: true %>
+        <div class="relative flex-grow border rounded-md ">
+          <%= f.text_field :name, id: "search-dropdown", class: " w-full p-2.5 z-20 text-sm text-gray-100 bg-transparent focus:outline-gray-800 rounded-md", placeholder: "Search", required: true %>
           <div class="absolute top-0 end-0 flex">
             <%= link_to products_path, class: "p-2.5 text-sm font-medium h-full text-white bg-transparent border-s border-white hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-red-300" do %>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +29,25 @@
       </div>
     <% end %>
   </div>
+
+<%# Tabs %>
+  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 mt-6">
+      <li class="me-2">
+          <%= link_to "All", products_path, class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category].blank? ? 'text-white bg-green-700' : ''}" %>
+      </li>
+      <li class="me-2">
+          <%= link_to "Guitars", products_path(category: "Guitars"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'guitars' ? 'text-white bg-green-700' : ''}" %>
+      </li>
+      <li class="me-2">
+          <%= link_to "Basses", products_path(category: "Basses"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'basses' ? 'text-white bg-green-700' : ''}" %>
+      </li>
+      <li class="me-2">
+          <%= link_to "Drums", products_path(category: "Drums"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'drums' ? 'text-white bg-green-700' : ''}" %>
+      </li>
+      <li class="me-2">
+          <%= link_to "Accessories", products_path(category: "Accessories"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'accessories' ? 'text-white bg-green-700' : ''}" %>
+      </li>
+  </ul>
 
   <%# Product Grid %>
   <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
