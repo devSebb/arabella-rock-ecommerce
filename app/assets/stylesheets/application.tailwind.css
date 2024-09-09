@@ -4,17 +4,9 @@
 
 body {
   font-family: 'Playfair Display', serif;
+  zoom: 1.25;
 }
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
-
-*/
 @layer utilities {
 
       .my-path {

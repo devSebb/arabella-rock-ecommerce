@@ -40,11 +40,15 @@
   </div>
   <div class="col-span-3 col-end-7 image-container">
     <%= image_tag 'musicians/Metallica_Concert.jpg', class: 'image', alt: 'Metallica' %>
+    </div>
   </div>
-</div>
-
 </section>
 
 <section>
- <%= render 'shared/product_gallery' %>
-  </section>
+ <div class="flex flex-col">
+    <h1 class="font-special mx-auto text-center text-white mb-10", style="font-size: 40px;">
+      Our Newest Gems
+    </h1>
+    <%= render 'shared/product_gallery' %>
+  </div>
+</section>
