@@ -22,12 +22,15 @@
     <% end %>
 
     <%# Cart Button %>
-    <%= link_to cart_path, class: "relative inline-flex items-center px-2 py-1 bg-transparent border border-white text-sm font-medium text-center text-white rounded-lg hover:bg-gray-600 ml-4" do %>
-      <%= image_tag 'icons/cart_white.svg', class: 'w-8 h-8 flex-shrink-0 text-white mx-2 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white', style: "fill: white;", alt: 'Shopping cart icon' %>
-      <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-        <%= session[:cart] ? session[:cart].values.sum : 0 %>
-      </div>
+    <%= turbo_frame_tag "cart_quantity" do %>
+      <%= link_to cart_path, class: "relative inline-flex items-center px-2 py-1 bg-transparent border border-white text-sm font-medium text-center text-white rounded-lg hover:bg-gray-600 ml-4" do %>
+        <%= image_tag 'icons/cart_white.svg', class: 'w-8 h-8 flex-shrink-0 text-white mx-2 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white', style: "fill: white;", alt: 'Shopping cart icon' %>
+        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+          <%= session[:cart] ? session[:cart].values.sum : 0 %>
+        </div>
+      <% end %>
     <% end %>
+    <div id="cart_notice"></div>
   </div>
 
 <%# Tabs %>
@@ -50,12 +53,6 @@
   </ul>
 
   <%# Product Grid %>
-  <%= turbo_frame_tag "cart_quantity" do %>
-    <%= render 'shared/cart_quantity', quantity: session[:cart] ? session[:cart].values.sum : 0 %>
-  <% end %>
-
-  <div id="cart_notice"></div>
-
   <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
     <% @products.each do |product| %>
       <div class="text-white flex flex-col w-60 border border-white p-6 rounded-lg justify-between">
