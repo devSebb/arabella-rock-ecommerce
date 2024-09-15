@@ -1,15 +1,15 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource except: [ :index, :show ]
   before_action :merchant_or_admin, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @products = Product.all.order(category: :desc)
+    @products = Product.with_attached_images.order(category: :desc)
     @products = @products.where(category: params[:category]) if params[:category].present?
     @products = @products.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def new
@@ -17,11 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-
-    if params[:product][:images].present?
-      @product.images.attach(params[:product][:images])
-    end
+    @product = current_user.products.new(product_params)
 
     if @product.save
       redirect_to products_path, notice: "Product was successfully created."
@@ -31,11 +27,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to products_path, notice: "Product updated successfully."
     else
@@ -44,15 +38,18 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to products_path, notice: "Product deleted successfully."
   end
 
   private
 
+  def set_product
+    @product = Product.with_attached_images.find(params[:id])
+  end
+
   def product_params
-    params.require(:product).permit(:name, :description, :price, :stock, :user_id, :category)
+    params.require(:product).permit(:name, :description, :price, :stock, :category, images: [])
   end
 
   def merchant_or_admin
