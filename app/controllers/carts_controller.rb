@@ -13,16 +13,32 @@ class CartsController < ApplicationController
 
     session[:cart] = @cart
     Rails.logger.debug("After adding, cart session data: #{session[:cart].inspect}")
-    update_cart_quantity
-    redirect_to cart_path, notice: "Product added to cart."
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("cart_quantity", partial: "shared/cart_quantity", locals: { quantity: @cart.values.sum }),
+          turbo_stream.update("cart_notice", "<div class='notice'>Product added to cart.</div>")
+        ]
+      end
+      format.html { redirect_to cart_path, notice: "Product added to cart." }
+    end
   end
 
   def remove
     product_id = params[:product_id].to_s
     @cart.delete(product_id)
     session[:cart] = @cart
-    update_cart_quantity
-    redirect_to cart_path, notice: "Product removed from cart."
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("cart_quantity", partial: "shared/cart_quantity", locals: { quantity: @cart.values.sum }),
+          turbo_stream.update("cart_notice", "<div class='notice'>Product removed from cart.</div>")
+        ]
+      end
+      format.html { redirect_to cart_path, notice: "Product removed from cart." }
+    end
   end
 
   def update_quantity
@@ -31,14 +47,22 @@ class CartsController < ApplicationController
 
     if quantity > 0
       session[:cart][product_id] = quantity
-      flash[:notice] = "Quantity updated successfully"
     else
       session[:cart].delete(product_id)
-      flash[:notice] = "Item removed from cart"
     end
 
-    update_cart_quantity
-    redirect_to cart_path
+    @cart = session[:cart]
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("cart_quantity", partial: "shared/cart_quantity", locals: { quantity: @cart.values.sum }),
+          turbo_stream.replace("cart_items", partial: "carts/cart_items", locals: { cart: @cart }),
+          turbo_stream.update("cart_notice", "<div class='notice'>Cart updated.</div>")
+        ]
+      end
+      format.html { redirect_to cart_path, notice: "Cart updated." }
+    end
   end
 
   private
@@ -46,16 +70,5 @@ class CartsController < ApplicationController
   def set_cart
     @cart = session[:cart] || {}
     Rails.logger.debug("set_cart called, cart data: #{@cart.inspect}")
-  end
-
-  def update_cart_quantity
-    total_quantity = @cart.values.sum
-    Rails.logger.debug("Updating cart quantity: #{total_quantity}")
-    Turbo::StreamsChannel.broadcast_replace_to(
-      "cart",
-      target: "cart_quantity",
-      partial: "shared/cart_quantity",
-      locals: { quantity: total_quantity }
-    )
   end
 end

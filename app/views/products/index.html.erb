@@ -50,6 +50,12 @@
   </ul>
 
   <%# Product Grid %>
+  <%= turbo_frame_tag "cart_quantity" do %>
+    <%= render 'shared/cart_quantity', quantity: session[:cart] ? session[:cart].values.sum : 0 %>
+  <% end %>
+
+  <div id="cart_notice"></div>
+
   <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
     <% @products.each do |product| %>
       <div class="text-white flex flex-col w-60 border border-white p-6 rounded-lg justify-between">
@@ -73,7 +79,7 @@
 
           <%= link_to "Details", product_path(product), class: "text-white hover:underline" %>
 
-          <%= form_with url: add_to_cart_path(product), method: :post, local: true do %>
+          <%= form_with url: add_to_cart_path(product), method: :post, data: { turbo_frame: "cart_quantity" } do %>
             <button type="submit" class="p-3 text-white rounded-lg border border-white hover:bg-gray-800 shadow shadow-white">
               Add to Cart
             </button>
