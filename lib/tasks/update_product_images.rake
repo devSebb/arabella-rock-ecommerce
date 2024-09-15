@@ -1,4 +1,5 @@
 require "cloudinary"
+require "tempfile"
 
 namespace :products do
   desc "Update product images in Cloudinary"
@@ -10,11 +11,17 @@ namespace :products do
         next if image.metadata["public_id"].present?
 
         begin
-          # Download the image file
-          image_file = image.download
+          # Download the image content
+          image_content = image.download
+
+          # Create a temporary file
+          temp_file = Tempfile.new([ "image", File.extname(image.filename.to_s) ])
+          temp_file.binmode
+          temp_file.write(image_content)
+          temp_file.rewind
 
           # Upload to Cloudinary
-          cloudinary_upload = Cloudinary::Uploader.upload(image_file)
+          cloudinary_upload = Cloudinary::Uploader.upload(temp_file.path)
 
           # Update the image metadata with the Cloudinary public_id
           image.update(metadata: image.metadata.merge(public_id: cloudinary_upload["public_id"]))
@@ -24,8 +31,8 @@ namespace :products do
           puts "Error updating image for product #{product.name}: #{e.message}"
         ensure
           # Clean up the temporary file
-          image_file.close
-          image_file.unlink
+          temp_file.close
+          temp_file.unlink
         end
       end
     end
