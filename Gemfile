@@ -69,3 +69,4 @@ gem 'pg_search'
 gem 'anime-rails', '~> 3.2', '>= 3.2.1.2'
 gem 'stripe'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'cloudinary'
