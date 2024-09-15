@@ -56,7 +56,7 @@
         <div class="flex justify-center mb-4">
           <% if product.images.attached? %>
             <% product.images.each do |image| %>
-              <%= image_tag image, alt: product.name, class: "w-fit h-[200px]" %>
+              <%= cl_image_tag image.key, alt: product.name, class: "w-fit h-[200px]" %>
             <% end %>
           <% else %>
             <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-auto h-[300px]" %>

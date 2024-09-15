@@ -1,4 +1,5 @@
 require "json"
+require "open-uri"
 
 filepath = Rails.root.join('db/products.json')
 serialized_products = File.read(filepath)
@@ -21,7 +22,8 @@ ActiveRecord::Base.transaction do
         if File.exist?(image_path)
           product.images.attach(
             io: File.open(image_path),
-            filename: File.basename(image_path)
+            filename: File.basename(image_path),
+            content_type: 'image/png'
           )
           puts "Image attached to #{product.name}: #{image_file}"
         else
