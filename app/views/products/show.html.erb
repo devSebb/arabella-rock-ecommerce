@@ -5,7 +5,7 @@
       <% if @product.images.attached? %>
         <div class="product-images">
           <% @product.images.each do |image| %>
-            <%= image_tag image, alt: @product.name, class: "w-fit h-auto max-h-[400px] object-cover" %>
+            <%= cl_image_tag image.key, alt: @product.name, class: "w-fit h-auto max-h-[400px] object-cover" %>
           <% end %>
         </div>
       <% else %>
