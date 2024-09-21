@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [ :new, :create ]
   end
 
+  get "about", to: "pages#about", as: :about
+
   resources :orders, only: [ :index, :show, :create ] do
     member do
       get "success"
