@@ -12,7 +12,15 @@
         <% if product %>
           <div class="flex justify-between items-center p-4 rounded-lg w-full" style="background-color: #27272a; border: 1px solid #fff;">
             <div class="flex items-center space-x-4 w-2/3">
-              <%= image_tag product.images.first, alt: product.name, class: "w-10 rounded" if product.images.attached? %>
+              <% if product.images.attached? %>
+                <div class="product-images">
+                  <% product.images.each do |image| %>
+                    <%= cl_image_tag image.key, alt: product.name, class: "w-10 rounded" %>
+                  <% end %>
+                </div>
+              <% else %>
+                <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-10 rounded" %>
+              <% end %>
               <div>
                 <h2 class="text-white text-xl font-semibold"><%= product.name %></h2>
                 <p class="text-gray-300">$<%= product.price %></p>

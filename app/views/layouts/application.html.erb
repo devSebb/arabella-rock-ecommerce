@@ -6,13 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%#= yield :head %>
-
-    <%# <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml"> %>
-    <%# <link rel="apple-touch-icon" href="/icon.png"> %>
+    <%= favicon_link_tag 'icons/guitar_icon.svg', type: 'image/svg+xml' %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,9 +23,6 @@
       <div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
     </div>
     <%= render "shared/navbar" %>
-    <%= turbo_frame_tag "cart_quantity" do %>
-      <%= render 'shared/cart_quantity', quantity: session[:cart] ? session[:cart].values.sum : 0 %>
-    <% end %>
     <div id="cart_notice"></div>
     <div class="flex-grow relative z-10">
       <%= yield %>

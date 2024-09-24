@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     @orders = if current_user&.admin?
                 Order.all
     elsif current_user&.merchant?
-                Order.all  # Merchants can read all orders
+                Order.all
     else
                 current_user&.orders || []
     end

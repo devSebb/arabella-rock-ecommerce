@@ -24,7 +24,7 @@ ActiveRecord::Base.transaction do
           # Upload to Cloudinary
           cloudinary_upload = Cloudinary::Uploader.upload(image_path)
 
-          # Attach the image using the Cloudinary public_id
+          # Attach the image using the Cloudinary public_idww
           product.images.attach(
             io: StringIO.new(cloudinary_upload['secure_url']),
             filename: File.basename(image_path),
