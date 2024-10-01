@@ -4,11 +4,11 @@ class OrdersController < ApplicationController
 
   def index
     @orders = if current_user&.admin?
-                Order.all
+      Order.all
     elsif current_user&.merchant?
-                Order.all
+      Order.all
     else
-                current_user&.orders || []
+      current_user&.orders || []
     end
   end
 
@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
     authorize! :create, @order
 
     if @cart.empty?
-      redirect_to cart_path, alert: "Your cart is empty. Please add items before checking out."
+      render json: { error: "Your cart is empty. Please add items before checking out." }, status: :unprocessable_entity
       return
     end
 
@@ -31,11 +31,11 @@ class OrdersController < ApplicationController
       create_order_items
       create_stripe_session
     else
-      redirect_to cart_path, alert: "Unable to create order. Please try again."
+      render json: { error: "Unable to create order. Please try again." }, status: :unprocessable_entity
     end
   rescue => e
     Rails.logger.error "Error creating order: #{e.message}"
-    redirect_to cart_path, alert: "An error occurred while creating your order. Please try again."
+    render json: { error: "An error occurred while creating your order. Please try again." }, status: :internal_server_error
   end
 
   def success
@@ -82,5 +82,7 @@ class OrdersController < ApplicationController
     )
 
     render json: { id: session.id }
+  rescue Stripe::StripeError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 end

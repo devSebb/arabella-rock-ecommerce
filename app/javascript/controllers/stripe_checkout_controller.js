@@ -7,6 +7,10 @@ export default class extends Controller {
   }
 
   connect() {
+    if (!this.publishableKeyValue) {
+      console.error("Stripe Publishable Key is not set")
+      return
+    }
     this.stripe = Stripe(this.publishableKeyValue)
   }
 
@@ -18,12 +22,26 @@ export default class extends Controller {
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
       },
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      return response.json()
+    })
     .then(data => {
-      this.stripe.redirectToCheckout({ sessionId: data.id })
+      if (!data.id) {
+        throw new Error('Session ID is missing in the response')
+      }
+      return this.stripe.redirectToCheckout({ sessionId: data.id })
+    })
+    .then(result => {
+      if (result.error) {
+        throw new Error(result.error.message)
+      }
     })
     .catch((error) => {
       console.error('Error:', error)
+      alert('An error occurred during checkout. Please try again.')
     })
   }
 }
