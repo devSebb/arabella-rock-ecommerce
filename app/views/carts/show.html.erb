@@ -15,7 +15,7 @@
               <% if product.images.attached? %>
                 <div class="product-images">
                   <% product.images.each do |image| %>
-                    <%= cl_image_tag image.key, alt: product.name, class: "w-10 rounded" %>
+                    <%= cl_image_tag image.metadata['public_id'], alt: product.name, class: "w-10 rounded" %>
                   <% end %>
                 </div>
               <% else %>
