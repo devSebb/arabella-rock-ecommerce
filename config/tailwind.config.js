@@ -8,6 +8,16 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}',
     './node_modules/flowbite/**/*.js'
   ],
+  safelist: [
+    {
+      pattern: /grid-cols-\d+/,
+      variants: ['sm', 'md', 'lg', 'xl'],
+    },
+    {
+      pattern: /col-span-\d+/,
+      variants: ['sm', 'md', 'lg', 'xl'],
+    },
+  ],
   theme: {
     extend: {
       fontFamily: {

@@ -1,0 +1,26 @@
+<% if cart.present? && cart.any? %>
+  <div class="space-y-10" data-controller="cart">
+    <% total_sum = 0 %>
+    <% cart.each do |product_id, quantity| %>
+      <% product = Product.find_by(id: product_id) %>
+      <% if product %>
+        <div class="flex justify-between items-center p-4 rounded-lg mx-auto" style="background-color: #27272a; border: 1px solid #fff;">
+          <!-- ... (rest of the product display code) ... -->
+        </div>
+        <% total_sum += product.price * quantity %>
+      <% end %>
+    <% end %>
+
+    <%# Total Price %>
+    <div class="flex justify-between items-center p-4 rounded-lg w-full bg-transparent text-white">
+      <h2 class="text-xl font-semibold">Total Price:</h2>
+      <p class="text-xl">$<%= total_sum %></p>
+    </div>
+
+    <div class="flex justify-end mt-8">
+      <!-- ... (checkout button code) ... -->
+    </div>
+  </div>
+<% else %>
+  <p class="text-white text-xl">Your cart is empty.</p>
+<% end %>

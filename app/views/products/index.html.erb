@@ -1,65 +1,62 @@
-<div class="mx-20">
-  <%# Search Form and Cart Button %>
-  <div class="flex flex-row justify-between items-center w-full">
-    <%= form_with url: products_path, method: :get, class: "flex-grow" do |f| %>
-      <div class="flex">
-        <div class="relative flex-grow border rounded-md ">
-          <%= f.text_field :name, id: "search-dropdown", class: " w-full p-2 z-20 text-sm text-gray-100 bg-transparent focus:outline-gray-800 rounded-md", placeholder: "Search", required: true %>
-          <div class="absolute top-0 end-0 flex">
-            <%= link_to products_path, class: "p-2.5 text-sm font-medium h-full text-white bg-transparent border-s border-white hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-red-300" do %>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            <% end %>
-            <button type="submit" class="p-2.5 text-sm font-medium h-full text-white bg-transparent rounded-e-lg border-s border-white hover:bg-gray-800">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
+<div class="md:mx-20">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full align-middle space-y-4 md:space-y-0">
+  <!-- Categories Tabs -->
+  <div class="w-full md:w-auto my-4 md:my-8">
+    <ul class="flex flex-wrap justify-center md:justify-start">
+      <% categories = ["All", "Guitars", "Basses", "Drums", "Accessories"] %>
+      <% categories.each do |category| %>
+        <% is_active = params[:category].to_s.downcase == category.downcase || (category == "All" && params[:category].blank?) %>
+        <li class="mr-2">
+          <%= link_to category, products_path(category: (category unless category == "All")), class: "px-3 py-1 md:px-4 md:py-2 rounded-xl text-xs md:text-sm border transition-colors duration-300 #{is_active ? 'bg-white text-black' : 'text-white border-white hover:bg-white hover:text-black'}" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="w-full md:w-auto flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+    <%# Search Form %>
+   <div class="flex">
+  <%= form_with url: products_path, method: :get, class: "w-full md:w-80" do |f| %>
+    <div class="relative w-full">
+      <%= f.text_field :name, id: "search-dropdown", class: "w-full py-2 pl-3 pr-16 text-sm text-gray-100 bg-transparent border border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-white", placeholder: "Search", required: true %>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+        <%= link_to products_path, class: "p-1 text-white hover:text-gray-300 transition-colors duration-200" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        <% end %>
+        <button type="submit" class="p-1 ml-1 text-white hover:text-gray-300 transition-colors duration-200">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
+        </button>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+</div>
+
 
     <%# Cart Button %>
-    <%= link_to cart_path, class: "relative inline-flex items-center px-2 py-1 bg-transparent border border-white text-sm font-medium text-center text-white rounded-lg hover:bg-gray-600 ml-4", data: { turbo_frame: "_top" } do %>
-      <%= image_tag 'icons/cart_white.svg', class: 'w-8 h-8 flex-shrink-0 text-white mx-2 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white', style: "fill: white;", alt: 'Shopping cart icon' %>
-      <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+    <%= link_to cart_path, class: "relative inline-flex items-center justify-center px-2 py-1 bg-transparent border border-white text-sm font-medium text-center text-white rounded-lg hover:bg-gray-600", style: "", data: { turbo_frame: "_top" } do %>
+      <%= image_tag 'icons/cart_white.svg', class: 'w-8 h-8 flex-shrink-0 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white', style: "fill: white;", alt: 'Shopping cart icon' %>
+      <div class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
         <%= session[:cart] ? session[:cart].values.sum : 0 %>
       </div>
     <% end %>
   </div>
-
-<%# Tabs %>
-  <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 mt-6">
-      <li class="me-2">
-          <%= link_to "All", products_path, class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category].blank? ? 'text-white bg-green-700' : ''}" %>
-      </li>
-      <li class="me-2">
-          <%= link_to "Guitars", products_path(category: "Guitars"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'guitars' ? 'text-white bg-green-700' : ''}" %>
-      </li>
-      <li class="me-2">
-          <%= link_to "Basses", products_path(category: "Basses"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'basses' ? 'text-white bg-green-700' : ''}" %>
-      </li>
-      <li class="me-2">
-          <%= link_to "Drums", products_path(category: "Drums"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'drums' ? 'text-white bg-green-700' : ''}" %>
-      </li>
-      <li class="me-2">
-          <%= link_to "Accessories", products_path(category: "Accessories"), class: "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 #{params[:category] == 'accessories' ? 'text-white bg-green-700' : ''}" %>
-      </li>
-  </ul>
+</div>
 
   <%# Product Grid %>
-  <div class="grid grid-cols-4 gap-4 w-full mx-auto text-white my-5">
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full mx-auto text-white my-5">
     <% @products.each do |product| %>
-      <div class="text-white flex flex-col w-60 border border-white p-6 rounded-lg justify-between">
+      <div class="text-white flex flex-col border border-white p-6 rounded-lg justify-between h-full">
         <div class="flex justify-center mb-4">
           <% if product.images.attached? %>
             <% product.images.each do |image| %>
-              <%= cl_image_tag image.metadata['public_id'], alt: product.name, class: "w-fit h-[200px]" %>
+              <%= cl_image_tag image.metadata['public_id'], alt: product.name, class: "w-full h-[200px] object-cover" %>
             <% end %>
           <% else %>
-            <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-auto h-[300px]" %>
+            <%= image_tag 'default-product-image.png', alt: 'Default Image', class: "w-full h-[200px] object-cover" %>
           <% end %>
         </div>
 
@@ -69,12 +66,10 @@
         <div class="text-xl mb-4">
           $<%= product.price %>
         </div>
-        <div class="flex flex-row justify-between">
-
+        <div class="flex flex-row justify-between mt-auto">
           <%= link_to "Details", product_path(product), class: "text-white hover:underline" %>
-
           <%= form_with url: add_to_cart_path(product), method: :post, data: { turbo_frame: "cart_quantity" } do %>
-            <button type="submit" class="p-3 text-white rounded-lg border border-white hover:bg-gray-800 shadow shadow-white">
+            <button type="submit" class="px-2 py-1 text-sm text-white rounded-lg border border-white hover:bg-gray-800 shadow shadow-white">
               Add to Cart
             </button>
           <% end %>

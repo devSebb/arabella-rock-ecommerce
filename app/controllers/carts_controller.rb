@@ -16,9 +16,10 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
+        flash.now[:notice] = "Product added to cart."
         render turbo_stream: [
           turbo_stream.replace("cart_quantity", partial: "shared/cart_quantity", locals: { quantity: @cart.values.sum }),
-          turbo_stream.update("cart_notice", "<div class='notice'>Product added to cart.</div>")
+          turbo_stream.update("flash", partial: "shared/flashes", locals: { notice: "Product added to cart." })
         ]
       end
       format.html { redirect_to cart_path, notice: "Product added to cart." }

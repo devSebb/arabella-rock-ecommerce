@@ -31,8 +31,10 @@ class OrdersController < ApplicationController
       create_order_items
       create_stripe_session
     else
-      render json: { error: "Unable to create order. Please try again." }, status: :unprocessable_entity
+      render json: { error: @order.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
+  rescue CanCan::AccessDenied => e
+    render json: { error: "You are not authorized to perform this action." }, status: :forbidden
   rescue => e
     Rails.logger.error "Error creating order: #{e.message}"
     render json: { error: "An error occurred while creating your order. Please try again." }, status: :internal_server_error

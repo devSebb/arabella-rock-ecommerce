@@ -24,7 +24,9 @@ export default class extends Controller {
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        return response.json().then(data => {
+          throw new Error(data.error || `HTTP error! status: ${response.status}`)
+        })
       }
       return response.json()
     })
@@ -41,7 +43,7 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error('Error:', error)
-      alert('An error occurred during checkout. Please try again.')
+      alert(`An error occurred during checkout: ${error.message}`)
     })
   }
 }
